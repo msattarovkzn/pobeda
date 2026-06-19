@@ -56,6 +56,7 @@ async function handler(req, res) {
     });
     res.status(200).json({ ok: true });
   } catch (error) {
+    console.error(error);
     res.status(502).json({ ok: false, error: 'Failed to deliver application' });
   }
 }
