@@ -147,7 +147,36 @@
     <button type="button" class="btn btn--gold btn--full" data-open-modal>Подать заявку на собеседование</button>
   </div>
 
-  <!-- Модалка добавляется в Task 7 -->
+  <div class="modal" id="applyModal" aria-hidden="true">
+    <div class="modal__overlay" data-modal-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="applyModalTitle">
+      <button type="button" class="modal__close" data-modal-close aria-label="Закрыть">&times;</button>
+      <h2 id="applyModalTitle">Заявка на собеседование</h2>
+      <form id="applyForm" novalidate>
+        <label for="applyName">Имя</label>
+        <input type="text" id="applyName" name="name" autocomplete="name">
+        <span class="form-error" data-error-for="name"></span>
+
+        <label for="applyContact">Телефон или Telegram</label>
+        <input type="text" id="applyContact" name="contact" autocomplete="tel">
+        <span class="form-error" data-error-for="contact"></span>
+
+        <div class="form-website">
+          <label for="applyWebsite">Website</label>
+          <input type="text" id="applyWebsite" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="form-consent">
+          <input type="checkbox" id="applyConsent" name="consent">
+          Даю согласие на обработку персональных данных в соответствии с <a href="privacy.html" target="_blank" rel="noopener">Политикой обработки персональных данных</a>
+        </label>
+        <span class="form-error" data-error-for="consent"></span>
+
+        <button type="submit" class="btn btn--gold btn--full">Отправить заявку</button>
+        <p class="form-status" id="applyFormStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
