@@ -1,0 +1,9 @@
+{
+  "name": "pobeda-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Лендинг закрытого бизнес-клуба «ПОБЕДА» (Уфа)",
+  "scripts": {
+    "test": "node --test tests/"
+  }
+}
