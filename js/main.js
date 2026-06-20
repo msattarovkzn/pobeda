@@ -24,7 +24,118 @@
   }
 
   function initApp() {
-    // DOM-обвязка добавляется в Task 6
+    var modal = document.getElementById('applyModal');
+    var openTriggers = document.querySelectorAll('[data-open-modal]');
+    var closeTriggers = modal ? modal.querySelectorAll('[data-modal-close]') : [];
+    var form = document.getElementById('applyForm');
+    var statusEl = document.getElementById('applyFormStatus');
+    var stickyCta = document.getElementById('stickyCta');
+    var hero = document.getElementById('hero');
+    var modalOpen = false;
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.add('modal--open');
+      modal.setAttribute('aria-hidden', 'false');
+      modalOpen = true;
+      document.body.classList.add('no-scroll');
+      updateStickyCta();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('modal--open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalOpen = false;
+      document.body.classList.remove('no-scroll');
+      updateStickyCta();
+    }
+
+    for (var i = 0; i < openTriggers.length; i++) {
+      openTriggers[i].addEventListener('click', openModal);
+    }
+    for (var j = 0; j < closeTriggers.length; j++) {
+      closeTriggers[j].addEventListener('click', closeModal);
+    }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && modalOpen) closeModal();
+    });
+
+    function clearErrors() {
+      var errorEls = form.querySelectorAll('.form-error');
+      for (var k = 0; k < errorEls.length; k++) errorEls[k].textContent = '';
+    }
+
+    function showErrors(errors) {
+      clearErrors();
+      Object.keys(errors).forEach(function (field) {
+        var el = form.querySelector('[data-error-for="' + field + '"]');
+        if (el) el.textContent = errors[field];
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var data = {
+          name: form.elements.name.value,
+          contact: form.elements.contact.value,
+          consent: form.elements.consent.checked,
+          website: form.elements.website.value,
+        };
+        var result = validateApplyForm(data);
+        if (!result.valid) {
+          showErrors(result.errors);
+          return;
+        }
+        clearErrors();
+        submitApplication(data);
+      });
+    }
+
+    function submitApplication(data) {
+      var submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      statusEl.textContent = '';
+      fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: data.name, contact: data.contact, website: data.website }),
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Request failed');
+          return response.json();
+        })
+        .then(function () {
+          statusEl.textContent = 'Заявка получена. Мы свяжемся с вами в ближайшее время.';
+          form.reset();
+          if (window.ym) {
+            window.ym(YANDEX_METRIKA_ID, 'reachGoal', 'form_submit');
+          }
+        })
+        .catch(function () {
+          statusEl.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.';
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    }
+
+    function updateStickyCta() {
+      if (!stickyCta || !hero) return;
+      var heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+      var show = shouldShowStickyCta({
+        scrollY: window.scrollY,
+        heroBottom: heroBottom,
+        modalOpen: modalOpen,
+      });
+      stickyCta.classList.toggle('sticky-cta--visible', show);
+    }
+
+    if (stickyCta) {
+      window.addEventListener('scroll', updateStickyCta, { passive: true });
+      updateStickyCta();
+    }
   }
 
   if (typeof module !== 'undefined' && module.exports) {
