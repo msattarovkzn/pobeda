@@ -19,6 +19,14 @@
     return state.scrollY > state.heroBottom;
   }
 
+  function getCarouselArrowState(state) {
+    var tolerance = 4;
+    return {
+      showPrev: state.scrollLeft > tolerance,
+      showNext: state.scrollLeft + state.clientWidth < state.scrollWidth - tolerance,
+    };
+  }
+
   if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', initApp);
   }
@@ -142,6 +150,7 @@
     module.exports = {
       validateApplyForm: validateApplyForm,
       shouldShowStickyCta: shouldShowStickyCta,
+      getCarouselArrowState: getCarouselArrowState,
     };
   }
 })();
