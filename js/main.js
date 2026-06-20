@@ -144,6 +144,58 @@
       window.addEventListener('scroll', updateStickyCta, { passive: true });
       updateStickyCta();
     }
+
+    var includesTrack = document.querySelector('.includes__track');
+    var includesPrev = document.querySelector('.includes__arrow--prev');
+    var includesNext = document.querySelector('.includes__arrow--next');
+
+    if (includesTrack && includesPrev && includesNext) {
+      function updateIncludesArrows() {
+        var state = getCarouselArrowState({
+          scrollLeft: includesTrack.scrollLeft,
+          clientWidth: includesTrack.clientWidth,
+          scrollWidth: includesTrack.scrollWidth,
+        });
+        includesPrev.hidden = !state.showPrev;
+        includesNext.hidden = !state.showNext;
+      }
+
+      function includesSlideStep() {
+        var slide = includesTrack.querySelector('.includes__slide');
+        var gap = 16;
+        return slide ? slide.getBoundingClientRect().width + gap : includesTrack.clientWidth;
+      }
+
+      includesPrev.addEventListener('click', function () {
+        includesTrack.scrollBy({ left: -includesSlideStep(), behavior: 'smooth' });
+      });
+      includesNext.addEventListener('click', function () {
+        includesTrack.scrollBy({ left: includesSlideStep(), behavior: 'smooth' });
+      });
+      includesTrack.addEventListener('scroll', updateIncludesArrows, { passive: true });
+      updateIncludesArrows();
+
+      var includesDragging = false;
+      var includesDragStartX = 0;
+      var includesDragStartScroll = 0;
+
+      includesTrack.addEventListener('pointerdown', function (event) {
+        includesDragging = true;
+        includesDragStartX = event.clientX;
+        includesDragStartScroll = includesTrack.scrollLeft;
+        includesTrack.classList.add('includes__track--dragging');
+      });
+      includesTrack.addEventListener('pointermove', function (event) {
+        if (!includesDragging) return;
+        includesTrack.scrollLeft = includesDragStartScroll - (event.clientX - includesDragStartX);
+      });
+      function endIncludesDrag() {
+        includesDragging = false;
+        includesTrack.classList.remove('includes__track--dragging');
+      }
+      includesTrack.addEventListener('pointerup', endIncludesDrag);
+      includesTrack.addEventListener('pointerleave', endIncludesDrag);
+    }
   }
 
   if (typeof module !== 'undefined' && module.exports) {
