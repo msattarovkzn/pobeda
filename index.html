@@ -12,7 +12,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- Yandex.Metrika counter -->
@@ -34,39 +34,65 @@
 <body>
   <header class="site-header">
     <div class="container site-header__inner">
-      <a href="#hero" class="logo">ПОБЕДА</a>
+      <a href="#hero" class="logo"><img src="assets/logo.png" alt="POBEDA Business Club" width="633" height="411"></a>
       <nav class="site-nav">
-        <a href="#what-is-included">Что входит</a>
         <a href="#founder">Основатель</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <button type="button" class="btn btn--gold btn--small" data-open-modal>Подать заявку</button>
+      <div class="site-header__actions">
+        <button type="button" class="btn btn--gold btn--small" data-open-modal>Подать заявку</button>
+        <div class="site-header__social">
+          <a href="#" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
   <main>
     <section id="hero" class="hero">
-      <div class="container">
-        <p class="eyebrow">ПОБЕДА — закрытый клуб предпринимателей. Уфа.</p>
-        <h1>Большие победы редко достигаются в одиночку</h1>
-        <p class="hero__subtitle">Закрытый клуб предпринимателей Уфы. Сильное окружение, честная обратная связь и люди, которые понимают ваш бизнес.</p>
-        <button type="button" class="btn btn--gold" data-open-modal>Подать заявку на собеседование</button>
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <h1 class="hero__title"><span class="hero__accent">Победа</span> — клуб для предпринимателей <span class="hero__accent">Уфы</span></h1>
+        <p class="hero__subtitle">Попади в сильное сообщество предпринимателей с доходом от <strong>300 тыс. руб.</strong> до <strong>10 млн руб.</strong> в мес.</p>
+        <button type="button" class="btn btn--gold" data-open-modal>Записаться на пробную встречу</button>
         <p class="hero__note">Вступление только после личного разговора</p>
       </div>
     </section>
 
-    <section id="pains" class="pains">
-      <div class="container">
-        <h2>Узнаёте себя?</h2>
-        <p class="section-intro">Большинство предпринимателей сталкиваются с одним и тем же — даже если внешне всё выглядит благополучно.</p>
-        <ul class="card-grid">
-          <li class="card"><span class="card__num">01</span>Одиночество в принятии решений</li>
-          <li class="card"><span class="card__num">02</span>Нет окружения, которое понимает бизнес</li>
-          <li class="card"><span class="card__num">03</span>Не с кем обсудить проблему открыто</li>
-          <li class="card"><span class="card__num">04</span>Не хватает честной обратной связи</li>
-          <li class="card"><span class="card__num">05</span>Сложно искать партнёров и нужные связи</li>
-          <li class="card"><span class="card__num">06</span>Не хватает новых идей и энергии для роста</li>
-        </ul>
+    <section id="founder" class="founder">
+      <div class="founder__bg" aria-hidden="true"></div>
+      <div class="container founder__inner">
+        <div class="founder__photo">
+          <img src="assets/founder-photo.webp" alt="Рустам Гумеров — основатель клуба «ПОБЕДА»" loading="lazy">
+        </div>
+        <div class="founder__content">
+          <span class="founder__mark" aria-hidden="true">&rdquo;</span>
+          <p>Имею реальный опыт построения бизнеса: доставка еды <strong>«Аппетит»</strong> с оборотом <strong>более 1 млрд рублей</strong> в год и строительные проекты в Башкортостане и других регионах России.</p>
+          <hr class="founder__divider">
+          <p>За годы в предпринимательстве понял главное: <strong>сильное окружение и наставники</strong> позволяют проходить путь <strong>быстрее</strong>, избегать многих ошибок и <strong>достигать большего</strong>.</p>
+          <p class="founder__name">Рустам Гумеров<span class="founder__name-line" aria-hidden="true"></span></p>
+          <p class="founder__role">Предприниматель, основатель бизнес-клуба «Победа»</p>
+          <button type="button" class="btn btn--gold" data-open-modal>Вступить в клуб</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="growth" class="growth">
+      <div class="container growth__inner">
+        <div class="growth__decor" aria-hidden="true">
+          <span class="growth__dots"></span>
+          <span class="growth__bar"></span>
+        </div>
+        <p class="growth__text">
+          Бизнес <span class="growth__highlight growth__highlight--fill">растёт</span><br>
+          <span class="growth__highlight growth__highlight--text">быстрее</span> там, где рядом<br>
+          люди <span class="growth__highlight growth__highlight--dark">сильнее тебя</span>.
+        </p>
       </div>
     </section>
 
@@ -78,37 +104,6 @@
         Победа через окружение.<br>
         Через совместное движение вперёд.</p>
         <p class="manifesto__quote">«Большие победы редко достигаются в одиночку.»</p>
-      </div>
-    </section>
-
-    <section id="what-is-included" class="included">
-      <div class="container">
-        <h2>Что входит в клуб</h2>
-        <ul class="card-grid card-grid--wide">
-          <li class="card"><span class="card__num">01</span><strong>Ежемесячные встречи</strong><span>Реальные разговоры, а не созвоны для галочки</span></li>
-          <li class="card"><span class="card__num">02</span><strong>Мастермайнды</strong><span>Разбор сложных решений с теми, кто прошёл похожий путь</span></li>
-          <li class="card"><span class="card__num">03</span><strong>Закрытый чат</strong><span>Всегда на связи с людьми, которые понимают бизнес</span></li>
-          <li class="card"><span class="card__num">04</span><strong>Спортивные мероприятия</strong><span>Энергия и форма наравне с делом</span></li>
-          <li class="card"><span class="card__num">05</span><strong>Совместные поездки</strong><span>Больше контекста, больше доверия</span></li>
-          <li class="card"><span class="card__num">06</span><strong>Приглашённые эксперты</strong><span>Практический опыт, не теория</span></li>
-          <li class="card"><span class="card__num">07</span><strong>Поиск партнёров</strong><span>Нужные связи внутри закрытого круга</span></li>
-          <li class="card"><span class="card__num">08</span><strong>Нетворкинг</strong><span>Знакомства, которые работают</span></li>
-          <li class="card"><span class="card__num">09</span><strong>Совместный отдых с семьями</strong><span>Клуб не только про бизнес</span></li>
-          <li class="card"><span class="card__num">10</span><strong>Помощь в кризисных ситуациях</strong><span>Поддержка, когда она нужнее всего</span></li>
-          <li class="card"><span class="card__num">11</span><strong>Разборы бизнеса участников</strong><span>Взгляд со стороны от тех, кому можно доверять</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="founder" class="founder">
-      <div class="container founder__inner">
-        <div class="founder__avatar" aria-hidden="true"></div>
-        <div>
-          <p class="eyebrow">Кто стоит за клубом</p>
-          <h2>[Имя Фамилия]</h2>
-          <p>Предприниматель из Уфы. Создал клуб «ПОБЕДА», потому что сам прошёл путь одиночества в бизнесе — и знает, как сильное окружение меняет скорость роста.</p>
-          <p class="founder__quote">«Я создал клуб, в который сам хотел бы прийти на старте своего пути.»</p>
-        </div>
       </div>
     </section>
 
@@ -151,7 +146,7 @@
 
   <footer class="site-footer">
     <div class="container site-footer__inner">
-      <span class="logo">ПОБЕДА</span>
+      <span class="logo"><img src="assets/logo.png" alt="POBEDA Business Club" width="633" height="411"></span>
       <p>Закрытый клуб предпринимателей. Уфа.</p>
       <a href="#" target="_blank" rel="noopener">Instagram</a>
       <a href="privacy.html">Политика обработки персональных данных</a>
