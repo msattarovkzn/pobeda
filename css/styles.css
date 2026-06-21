@@ -204,6 +204,7 @@ a { color: var(--color-gold); text-decoration: none; }
 .statement__inner {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: var(--space-3);
 }
 
@@ -249,6 +250,10 @@ a { color: var(--color-gold); text-decoration: none; }
 
 @media (min-width: 1024px) {
   .statement__text { font-size: 3rem; }
+}
+
+@media (min-width: 1440px) {
+  .statement__text { font-size: 3.5rem; }
 }
 
 .founder {
@@ -340,6 +345,7 @@ a { color: var(--color-gold); text-decoration: none; }
 .growth__inner {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-4);
 }
 
@@ -386,6 +392,10 @@ a { color: var(--color-gold); text-decoration: none; }
 
 @media (min-width: 1024px) {
   .growth__text { font-size: 3.5rem; }
+}
+
+@media (min-width: 1440px) {
+  .growth__text { font-size: 4rem; }
 }
 
 .includes {
