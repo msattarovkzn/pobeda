@@ -195,14 +195,61 @@ a { color: var(--color-gold); text-decoration: none; }
   margin-bottom: 8px;
 }
 
-.manifesto {
+.statement {
+  background: #F7F7F8;
+  color: #0A0A0C;
   padding: var(--space-6) 0;
-  text-align: center;
-  background: var(--color-bg-alt);
 }
 
-.manifesto p:first-child { font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-text); }
-.manifesto__quote { color: var(--color-gold); font-size: 1.25rem; margin-top: var(--space-4); }
+.statement__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.statement__bar {
+  flex-shrink: 0;
+  width: 4px;
+  align-self: stretch;
+  background: #E31E24;
+}
+
+.statement__text {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: #0A0A0C;
+  font-size: 1.75rem;
+}
+
+.statement__highlight { font-weight: 800; }
+.statement__highlight--fill { background: #E31E24; color: #fff; padding: 4px 14px; border-radius: 2px; }
+.statement__highlight--text { color: #E31E24; }
+
+.statement__highlight--circle {
+  position: relative;
+  display: inline-block;
+  padding: 0 6px;
+}
+
+.statement__circle {
+  position: absolute;
+  top: -28%;
+  left: -10%;
+  width: 120%;
+  height: 156%;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .statement__text { font-size: 2.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .statement__text { font-size: 3rem; }
+}
 
 .founder {
   --color-bg: #0A0A0C;
