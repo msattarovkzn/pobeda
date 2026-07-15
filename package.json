@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "description": "Лендинг закрытого бизнес-клуба «ПОБЕДА» (Уфа)",
   "scripts": {
-    "test": "node --test tests/**/*.test.js"
+    "test": "node --test tests/**/*.test.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
   }
 }
