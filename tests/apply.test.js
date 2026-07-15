@@ -54,9 +54,15 @@ test('handler returns 400 for invalid body', async () => {
   assert.equal(res.statusCode, 400);
 });
 
-test('handler returns 500 when env vars missing', async () => {
+function clearDeliveryEnv() {
   delete process.env.TELEGRAM_BOT_TOKEN;
   delete process.env.TELEGRAM_CHAT_ID;
+  delete process.env.MAX_BOT_TOKEN;
+  delete process.env.MAX_CHAT_ID;
+}
+
+test('handler returns 500 when env vars missing', async () => {
+  clearDeliveryEnv();
   const req = { method: 'POST', body: { name: 'Иван', contact: '@ivan' } };
   const res = createRes();
   await handler(req, res);
@@ -64,6 +70,7 @@ test('handler returns 500 when env vars missing', async () => {
 });
 
 test('handler sends message to Telegram and returns 200', async () => {
+  clearDeliveryEnv();
   process.env.TELEGRAM_BOT_TOKEN = 'test-token';
   process.env.TELEGRAM_CHAT_ID = '12345';
   const originalFetch = global.fetch;
@@ -78,6 +85,7 @@ test('handler sends message to Telegram and returns 200', async () => {
   const res = createRes();
   await handler(req, res);
   global.fetch = originalFetch;
+  clearDeliveryEnv();
   assert.equal(res.statusCode, 200);
   assert.deepEqual(res.body, { ok: true });
   assert.match(calledUrl, /test-token/);
@@ -85,6 +93,7 @@ test('handler sends message to Telegram and returns 200', async () => {
 });
 
 test('handler returns 502 when Telegram API fails', async () => {
+  clearDeliveryEnv();
   process.env.TELEGRAM_BOT_TOKEN = 'test-token';
   process.env.TELEGRAM_CHAT_ID = '12345';
   const originalFetch = global.fetch;
@@ -95,5 +104,49 @@ test('handler returns 502 when Telegram API fails', async () => {
   const res = createRes();
   await handler(req, res);
   global.fetch = originalFetch;
+  clearDeliveryEnv();
   assert.equal(res.statusCode, 502);
+});
+
+test('handler sends message to both Telegram and MAX when both configured', async () => {
+  clearDeliveryEnv();
+  process.env.TELEGRAM_BOT_TOKEN = 'tg-token';
+  process.env.TELEGRAM_CHAT_ID = '12345';
+  process.env.MAX_BOT_TOKEN = 'max-token';
+  process.env.MAX_CHAT_ID = '67890';
+  const originalFetch = global.fetch;
+  const calledUrls = [];
+  global.fetch = async function (url) {
+    calledUrls.push(String(url));
+    return { ok: true, json: async () => ({ ok: true }) };
+  };
+  const req = { method: 'POST', body: { name: 'Иван', contact: '@ivan' } };
+  const res = createRes();
+  await handler(req, res);
+  global.fetch = originalFetch;
+  clearDeliveryEnv();
+  assert.equal(res.statusCode, 200);
+  assert.ok(calledUrls.some((url) => url.includes('api.telegram.org')));
+  assert.ok(calledUrls.some((url) => url.includes('platform-api2.max.ru')));
+});
+
+test('handler still returns 200 when MAX fails but Telegram succeeds', async () => {
+  clearDeliveryEnv();
+  process.env.TELEGRAM_BOT_TOKEN = 'tg-token';
+  process.env.TELEGRAM_CHAT_ID = '12345';
+  process.env.MAX_BOT_TOKEN = 'max-token';
+  process.env.MAX_CHAT_ID = '67890';
+  const originalFetch = global.fetch;
+  global.fetch = async function (url) {
+    if (String(url).includes('platform-api2.max.ru')) {
+      return { ok: false, status: 500, text: async () => 'max error' };
+    }
+    return { ok: true, json: async () => ({ ok: true }) };
+  };
+  const req = { method: 'POST', body: { name: 'Иван', contact: '@ivan' } };
+  const res = createRes();
+  await handler(req, res);
+  global.fetch = originalFetch;
+  clearDeliveryEnv();
+  assert.equal(res.statusCode, 200);
 });
